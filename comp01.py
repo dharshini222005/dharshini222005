@@ -1,11 +1,10 @@
-n = int(input("Enter input number : "))
- 
-fact = 1
-if n < 0:
-    print("Factorial does not exist for negative numbers")
-elif n == 0:
-    print("The factorial of 0 is 1")
+if year % 4 == 0:
+    if year % 100 == 0:
+        if year % 400 == 0:
+            print("The year is a leap year!")
+        else:
+            print("The year is not a leap year!")
+    else:
+        print("The year is a leap year!")
 else:
-    for i in range(1, n + 1):
-        fact = fact * i
-    print("The factorial of",n,"is",fact)
+    print("The year is not a leap year!")
