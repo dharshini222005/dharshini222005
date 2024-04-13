@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple To-Do List App</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+
+  .container {
+    width: 400px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    margin-bottom: 10px;
+  }
+
+  .task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+  }
+
+  .task input[type="checkbox"] {
+    margin-right: 10px;
+  }
+
+  .btn {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background-color: #0056b3;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>My To-Do List</h2>
+  <form id="taskForm">
+    <input type="text" id="taskTitle" placeholder="Enter task title" required>
+    <input type="text" id="taskDescription" placeholder="Enter task description">
+    <button type="submit" class="btn">Add Task</button>
+  </form>
+  <ul id="taskList">
+    <!-- Tasks will be dynamically added here -->
+  </ul>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const taskForm = document.getElementById('taskForm');
+    const taskTitleInput = document.getElementById('taskTitle');
+    const taskDescriptionInput = document.getElementById('taskDescription');
+    const taskList = document.getElementById('taskList');
+
+    taskForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const title = taskTitleInput.value.trim();
+      const description = taskDescriptionInput.value.trim();
+      if (title === '') return;
+      addTask(title, description);
+      taskForm.reset();
+    });
+
+    function addTask(title, description) {
+      const li = document.createElement('li');
+      li.classList.add('task');
+      li.innerHTML = `
+        <input type="checkbox">
+        <div>
+          <strong>${title}</strong>
+          ${description ? `- ${description}` : ''}
+        </div>
+        <button class="btn delete-btn">Delete</button>
+      `;
+      taskList.appendChild(li);
+    }
+
+    taskList.addEventListener('click', function (event) {
+      if (event.target.matches('.delete-btn')) {
+        event.target.closest('li').remove();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
